@@ -1,0 +1,26 @@
+<html>
+<head>
+    <title>Verificación de Receta</title>
+</head>
+<body>
+    <h1>Verificación de Receta</h1>
+    <div id="informacion"></div>
+
+    <script>
+        // Obtener parámetros de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const nombre = urlParams.get('nombre');
+        const fecha_nacimiento = urlParams.get('fecha_nacimiento');
+        const dni = urlParams.get('dni');
+        const receta = urlParams.get('receta');
+
+        // Mostrar la información en la página
+        document.getElementById('informacion').innerHTML = `
+            <p><strong>Nombre:</strong> ${nombre}</p>
+            <p><strong>Fecha de Nacimiento:</strong> ${fecha_nacimiento}</p>
+            <p><strong>DNI:</strong> ${dni}</p>
+            <p><strong>Receta:</strong> ${receta}</p>
+        `;
+    </script>
+</body>
+</html>
