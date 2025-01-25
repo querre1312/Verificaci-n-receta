@@ -7,18 +7,27 @@
 </head>
 <body>
     <h1>Verificación de Receta</h1>
-    <div id="info"></div>
+    <div id="info">
+        <p>Cargando datos...</p>
+    </div>
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const nombre = urlParams.get('nombre');
-        const dni = urlParams.get('dni');
-        const receta = urlParams.get('receta');
+        // Función para obtener parámetros de la URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param) || "No disponible";
+        }
 
+        // Obtener datos
+        const nombre = getQueryParam('nombre');
+        const dni = getQueryParam('dni');
+        const receta = getQueryParam('receta');
+
+        // Mostrar los datos en la página
         document.getElementById('info').innerHTML = `
-            <p><strong>Paciente:</strong> ${nombre || "No disponible"}</p>
-            <p><strong>DNI:</strong> ${dni || "No disponible"}</p>
-            <p><strong>Número de Receta:</strong> ${receta || "No disponible"}</p>
+            <p><strong>Paciente:</strong> ${nombre}</p>
+            <p><strong>DNI:</strong> ${dni}</p>
+            <p><strong>Número de Receta:</strong> ${receta}</p>
         `;
     </script>
 </body>
