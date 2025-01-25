@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación de Receta Médica</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9f7ef;
+            border: 1px solid #d0e9d3;
+            border-radius: 5px;
+        }
+        .button {
+            background-color: #2d87f0;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #1a6fc4;
+        }
+        .inputField {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Verificación de Receta Médica</h1>
+        <!-- Botón para iniciar el escaneo del QR -->
+        <button id="startScan" class="button">Escanear Código QR</button>
+        
+        <!-- Muestra la información de la receta -->
+        <div class="result" id="qrResult" style="display:none;">
+            <p><strong>Nombre del Paciente:</strong> <span id="patientName"></span></p>
+            <p><strong>Medicamento:</strong> <span id="medication"></span></p>
+            <p><strong>Fecha de Emisión:</strong> <span id="issueDate"></span></p>
+            <p><strong>Código de Receta:</strong> <span id="recipeCode"></span></p>
+        </div>
+    </div>
+
+    <!-- Cargar librería para escanear QR -->
+    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+    <script>
+        document.getElementById("startScan").addEventListener("click", function() {
+            const qrResultElement = document.getElementById("qrResult");
+            const qrCodeScannerElement = document.createElement("div");
+
+            document.body.appendChild(qrCodeScannerElement);
+
+            const qrCodeScanner = new Html5QrcodeScanner(qrCodeScannerElement, {
+                fps: 10,
+                qrbox: 250
+            });
+
+            qrCodeScanner.render((result) => {
+                // Simulamos un formato de datos decodificado
+                const data = result.text.split(".");
+                if (data.length === 4) {
+                    // Ejemplo de datos decodificados
+                    document.getElementById("patientName").textContent = data[0];
+                    document.getElementById("medication").textContent = data[1];
+                    document.getElementById("issueDate").textContent = data[2];
+                    document.getElementById("recipeCode").textContent = data[3];
+                    qrResultElement.style.display = "block";
+                } else {
+                    alert("QR no válido o mal formato.");
+                }
+                qrCodeScanner.clear();
+            });
+        });
+    </script>
+</body>
+</html>
