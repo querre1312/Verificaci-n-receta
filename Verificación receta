@@ -1,25 +1,24 @@
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verificación de Receta</title>
 </head>
 <body>
     <h1>Verificación de Receta</h1>
-    <div id="informacion"></div>
+    <div id="info"></div>
 
     <script>
-        // Obtener parámetros de la URL
         const urlParams = new URLSearchParams(window.location.search);
         const nombre = urlParams.get('nombre');
-        const fecha_nacimiento = urlParams.get('fecha_nacimiento');
         const dni = urlParams.get('dni');
         const receta = urlParams.get('receta');
 
-        // Mostrar la información en la página
-        document.getElementById('informacion').innerHTML = `
-            <p><strong>Nombre:</strong> ${nombre}</p>
-            <p><strong>Fecha de Nacimiento:</strong> ${fecha_nacimiento}</p>
-            <p><strong>DNI:</strong> ${dni}</p>
-            <p><strong>Receta:</strong> ${receta}</p>
+        document.getElementById('info').innerHTML = `
+            <p><strong>Paciente:</strong> ${nombre || "No disponible"}</p>
+            <p><strong>DNI:</strong> ${dni || "No disponible"}</p>
+            <p><strong>Número de Receta:</strong> ${receta || "No disponible"}</p>
         `;
     </script>
 </body>
